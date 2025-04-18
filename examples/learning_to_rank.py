@@ -74,7 +74,7 @@ data.jkp_data = jkp_data
 
 # --------------------------------------------------------------------------
 # Create a features dataframe from the jkp_data
-# Reset the date index to be consistent with the date index in market_data
+# Reset the date index to be consistent with the date index in market_data ##From Kornel: whilst making sure there is no look ahead bias
 # --------------------------------------------------------------------------
 
 market_data_dates = data.market_data.index.get_level_values('date').unique().sort_values()
@@ -159,9 +159,15 @@ df_test = merged_df[merged_df['date'] == split_date].reset_index(drop=True)
 # Training data
 X_train = (
     df_train.drop(['date', 'id', 'label', 'ret'], axis=1)
+<<<<<<< Updated upstream
     # df_train.drop(['date', 'id', 'label'], axis=1)
 #    .dropna(axis=1, how='all')
 #    .dropna(axis=0, how='all')
+=======
+    # df_train.drop(['date', 'id', 'label'], axis=1) ##From Kornel: should check that if we leave relevant information then the training realizes it
+    .dropna(axis=1, how='all')
+    .dropna(axis=0, how='all')
+>>>>>>> Stashed changes
     .fillna(0)
 )
 y_train = df_train['label'].loc[X_train.index]

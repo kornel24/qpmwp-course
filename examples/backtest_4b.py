@@ -202,30 +202,46 @@ bt_mv.run(bs = bs)
 # --------------------------------------------------------------------------
 # Adjustment 1: mean-variance portfolio with risk aversion of 5
 # --------------------------------------------------------------------------
-
+##From Kornel:this section is what we have done at lecture, using the previous code to write different risk aversion. Further notice that the save name is different!
 # Update the backtest service with a MeanVariance optimization object
 bs.optimization = MeanVariance(
     covariance = Covariance(method = 'pearson'),
     expected_return = ExpectedReturn(method = 'geometric'),
+<<<<<<< Updated upstream
     risk_aversion = 5,
+=======
+    risk_aversion = 1,
+>>>>>>> Stashed changes
     solver_name = 'cvxopt',
 )
 
 # Instantiate the backtest object and run the backtest
+<<<<<<< Updated upstream
 bt_mv_ra5 = Backtest()
 
 # Run the backtest
 bt_mv_ra5.run(bs = bs)
+=======
+bt_mv_ra5= Backtest()
+
+# Run the backtest
+bt_mv_ra5.run(bs=bs)
+>>>>>>> Stashed changes
 
 # Save the backtest as a .pickle file
 # bt_mv_ra5.save(
 #     path = 'C:/Users/User/OneDrive/Documents/QPMwP/Backtests/',  # <change this to your path where you want to store the backtest>
+<<<<<<< Updated upstream
 #     filename = 'backtest_mv_ra5.pickle' # <change this to your desired filename>
 # )
+=======
+#     filename = 'backtest_mv.pickle' # <change this to your desired filename>
+# )
+
+>>>>>>> Stashed changes
 
 
-
-
+##From Kornel: For the Gaps filter below: can always check the selection st bs.selection.df(), or if only looking at the binary method: bs.selection.df_binary().sum()
 
 # --------------------------------------------------------------------------
 # Adjustment 2: gaps filter
@@ -252,7 +268,7 @@ def bibfn_selection_gaps(bs, rebdate: str, **kwargs) -> pd.Series:
         ).fillna(0)
     )
 
-    # Calculate the length of the longest consecutive zero sequence
+    # Calculate the length of the longest consecutive zero sequence ##From Kornel:Helper function to check
     def consecutive_zeros(column):
         return (column == 0).astype(int).groupby(column.ne(0).astype(int).cumsum()).sum().max()
 
